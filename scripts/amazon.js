@@ -21,10 +21,10 @@ products.forEach((product) => {
     </div>
 
     <div class="product-price">
-      ${(product.priceCents / 100).toFixed(2)}
+      Rs.${Math.ceil(product.priceCents)}
     </div>
 
-    <div class="product-quantity-container">
+    <div class="product-quantity-container js-quantity-selector-${product.id}">
       <select>
         <option selected value="1">1</option>
         <option value="2">2</option>
@@ -41,7 +41,7 @@ products.forEach((product) => {
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart js-added-checkmark-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
@@ -60,8 +60,17 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
+    //const productId = button.dataset.productId;
+    const { productId } = button.dataset; //upar ka alternate
 
+    const selectorQuantity = document.querySelector(
+      `.js-quantity-selector-${productId}`
+    );
+    const selectorQuantityValue = Number(
+      selectorQuantity.querySelector("select").value
+    );
+
+    //below code ye check karta hai ki joh product pe humne 'add to cart' click kiya voh cart mein pehle se hai ya nhi
     let matchingItem;
     cart.forEach((item) => {
       if (item.productId === productId) {
@@ -69,21 +78,37 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
       }
     });
 
+    //agar hai th selector quantity ko add kardo existing quantity mein; Agar nhi hai toh insert kardo product ko.
     if (matchingItem) {
-      matchingItem.quantity += 1;
+      matchingItem.quantity += selectorQuantityValue;
     } else {
       cart.push({
-        productId: productId,
-        quantity: 1,
+        productId: productId, //'productId,' ->alternate way
+        quantity: selectorQuantityValue,
       });
     }
 
-    let cartQuantity =0;
+    // below code is for counting the cart array and displaying it on the top right corner above the cart icon
+    let cartQuantity = 0;
     cart.forEach((item) => {
-          cartQuantity += item.quantity;
-        });
+      cartQuantity += item.quantity;
+    });
 
-      document.querySelector('.js-cart-quantity')
-        .innerHTML = cartQuantity; 
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+
+    //display the added check mark button above Add to Cart button
+    const addedCheckMark = document.querySelector(`
+      .js-added-checkmark-${productId}`);
+
+    //styled class with opacity=1 ko add kiya div mein
+    addedCheckMark.classList.add("added-to-cart-visible");
+
+    //remove the 'added' check mark after two seconds
+    
+    let timeoutID = setTimeout(() => {
+      addedCheckMark.classList.remove("added-to-cart-visible");
+    }, 2000);
+    //clear the timeout after 2 seconds.
+    //clearTimeout function add karo agar kar paao toh
   });
 });
