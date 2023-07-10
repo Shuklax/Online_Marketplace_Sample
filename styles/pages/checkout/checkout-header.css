@@ -2,7 +2,7 @@
   height: 60px;
   padding-left: 30px;
   padding-right: 30px;
-  background-color: white;
+  background-color: rgba(173, 246, 1, 0.994);
 
   display: flex;
   justify-content: center;
@@ -28,7 +28,7 @@
 
 .amazon-logo {
   width: 100px;
-  margin-top: 12px;
+  margin-top: 45px;
 }
 
 .amazon-mobile-logo {

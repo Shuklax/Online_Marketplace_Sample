@@ -34,9 +34,9 @@
   border: 1px solid rgba(0, 0, 0, 0);
 }
 
-.header-link:hover {
+/* .header-link:hover {
   border: 1px solid white;
-}
+} */
 
 .amazon-logo {
   width: 100px;
@@ -61,7 +61,7 @@
 
 .amazon-header-middle-section {
   flex: 1;
-  max-width: 850px;
+  max-width: 600px;
   margin-left: 10px;
   margin-right: 10px;
   display: flex;
@@ -74,10 +74,10 @@
   height: 38px;
   padding-left: 15px;
   border: none;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
 }
 
 .search-button {
@@ -104,7 +104,7 @@
 }
 
 .orders-link {
-  color: white;
+  color: rgb(176, 235, 12);
 }
 
 .returns-text {
